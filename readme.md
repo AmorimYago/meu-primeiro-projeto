@@ -7,3 +7,5 @@
 * Funcionalidade 3
 
 * Funcionalidade 4
+
+* Funcionalidade 5
