@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 
 @WebServlet("/create-car")
 public class CreateCarServlet extends HttpServlet {
 
-    @java.lang.Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         String carName = req.getParameter("name");
         String carColor = req.getParameter("color");
 
-        Car car = new Car();
-        car.setName(carName);
-        car.setColor(carColor);
+        Car car = new Car(carName, carColor);
+
+        new CarDao().createCar(car);
 
         CarDao carDao = new CarDao();
         carDao.createCar(car);
@@ -30,7 +31,7 @@ public class CreateCarServlet extends HttpServlet {
         //System.out.println(carName);
         //System.out.println(carColor);
 
-        req.getRequestDispatcher("index.html").forward(req, resp);
+        resp.sendRedirect("/find-all-cars");
 
     }
 
